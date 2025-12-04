@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - PetSpace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+
+<body>
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo">
+                <img src="Design/logo.png" alt="PetSpace Logo">
+                <span
+                    style="font-family: var(--font-heading); font-weight: 700; color: var(--primary-color); margin-left: 8px; font-size: 1.2rem;">PetSpace</span>
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="#">Productos</a>
+                <a href="#">Servicios</a>
+                <a href="#">Ofertas</a>
+                <a href="#">Contacto</a>
+            </nav>
+            <div class="nav-icons">
+                <a href="login.html"><i class="fas fa-user"></i></a>
+                <a href="productCart.html"><i class="fas fa-shopping-cart"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container cart-container">
+        <h1>Tu Carrito de Compras</h1>
+
+        <div class="cart-layout">
+            <!-- Cart Items -->
+            <div class="cart-items">
+                <!-- Item 1 -->
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="img/product-food.jpg" alt="Alimento Premium">
+                    </div>
+                    <div class="item-details">
+                        <h3>Alimento Premium Perro</h3>
+                        <p class="item-price">$45.00</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button>-</button>
+                                <input type="number" value="1" min="1">
+                                <button>+</button>
+                            </div>
+                            <button class="remove-btn"><i class="fas fa-trash"></i> Eliminar</button>
+                        </div>
+                    </div>
+                    <div class="item-total">
+                        $45.00
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="img/product-toy.jpg" alt="Juguete Interactivo">
+                    </div>
+                    <div class="item-details">
+                        <h3>Juguete Interactivo</h3>
+                        <p class="item-price">$15.50</p>
+                        <div class="item-actions">
+                            <div class="quantity-selector">
+                                <button>-</button>
+                                <input type="number" value="2" min="1">
+                                <button>+</button>
+                            </div>
+                            <button class="remove-btn"><i class="fas fa-trash"></i> Eliminar</button>
+                        </div>
+                    </div>
+                    <div class="item-total">
+                        $31.00
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h2>Resumen del Pedido</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>$76.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío</span>
+                    <span class="free">Gratis</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span>$76.00</span>
+                </div>
+                <button class="btn btn-primary btn-block">Finalizar Compra</button>
+                <a href="index.html" class="continue-shopping">Seguir comprando</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h4>PetSpace</h4>
+                <p>Tu tienda de confianza para el cuidado de tus mascotas.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#">Productos</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> info@petspace.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 PetSpace. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('mobile-menu').addEventListener('click', function () {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>
