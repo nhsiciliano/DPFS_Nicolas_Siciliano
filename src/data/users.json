@@ -1,20 +1,29 @@
 [
-    {
-        "id": 1,
-        "firstName": "Admin",
-        "lastName": "PetSpace",
-        "email": "admin@petspace.com",
-        "password": "adminpassword123",
-        "category": "admin",
-        "image": "default-admin.jpg"
-    },
-    {
-        "id": 2,
-        "firstName": "Juan",
-        "lastName": "Pérez",
-        "email": "juan.perez@example.com",
-        "password": "userpassword456",
-        "category": "user",
-        "image": "default-user.jpg"
-    }
+  {
+    "id": 1,
+    "firstName": "Admin",
+    "lastName": "PetSpace",
+    "email": "admin@petspace.com",
+    "password": "adminpassword123",
+    "category": "admin",
+    "image": "default-admin.jpg"
+  },
+  {
+    "id": 2,
+    "firstName": "Juan",
+    "lastName": "Pérez",
+    "email": "juan.perez@example.com",
+    "password": "userpassword456",
+    "category": "user",
+    "image": "default-user.jpg"
+  },
+  {
+    "id": 3,
+    "firstName": "Juan",
+    "lastName": "Perez",
+    "email": "juancitop@gmail.com",
+    "password": "$2b$10$N7UWVXkqAz3MdrWGYd9iSepFfz46OJZXtZoZzQXi8xgbR.bSw8Q22",
+    "category": "user",
+    "image": "image-1765034035251-148319017.png"
+  }
 ]

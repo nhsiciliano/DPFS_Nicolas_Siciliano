@@ -24,6 +24,9 @@ router.get('/', productsController.index);
 router.get('/create', productsController.create);
 router.post('/', upload.single('image'), productsController.store);
 
+// Buscador de productos
+router.get('/search', productsController.search);
+
 // Detalle de un producto
 router.get('/detail/:id', productsController.detail); // Mantengo '/detail/:id' por compatibilidad con current, pero el usuario pidió '/products/:id'
 

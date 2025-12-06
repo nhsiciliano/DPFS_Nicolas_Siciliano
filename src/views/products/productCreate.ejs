@@ -24,18 +24,46 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="category">Categoría</label>
-                            <select id="category" name="category"
+                            <label for="category_id">Categoría</label>
+                            <select id="category_id" name="category_id"
                                 style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"
                                 required>
                                 <option value="" disabled selected>Selecciona una categoría</option>
-                                <option value="Perros">Perros</option>
-                                <option value="Gatos">Gatos</option>
-                                <option value="Alimentos">Alimentos</option>
-                                <option value="Juguetes">Juguetes</option>
-                                <option value="Confort">Confort</option>
-                                <option value="Accesorios">Accesorios</option>
+                                <% categories.forEach(category=> { %>
+                                    <option value="<%= category.id %>">
+                                        <%= category.name %>
+                                    </option>
+                                    <% }) %>
                             </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="brand_id">Marca</label>
+                            <select id="brand_id" name="brand_id"
+                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"
+                                required>
+                                <option value="" disabled selected>Selecciona una marca</option>
+                                <% brands.forEach(brand=> { %>
+                                    <option value="<%= brand.id %>">
+                                        <%= brand.name %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Colores disponibles:</label>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <% colors.forEach(color=> { %>
+                                    <div>
+                                        <input type="checkbox" name="colors" value="<%= color.id %>"
+                                            id="color_<%= color.id %>">
+                                        <label for="color_<%= color.id %>">
+                                            <%= color.name %>
+                                        </label>
+                                    </div>
+                                    <% }) %>
+                            </div>
                         </div>
 
                         <div class="form-group">

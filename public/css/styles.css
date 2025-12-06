@@ -1,10 +1,15 @@
 :root {
     /* Paleta de Colores */
-    --primary-color: #673AB7; /* Deep Purple */
-    --secondary-color: #009688; /* Teal */
-    --accent-color: #FFC107; /* Amber */
-    --bg-color: #F5F5F5; /* Light Gray */
-    --text-color: #333333; /* Dark Gray */
+    --primary-color: #673AB7;
+    /* Deep Purple */
+    --secondary-color: #009688;
+    /* Teal */
+    --accent-color: #FFC107;
+    /* Amber */
+    --bg-color: #F5F5F5;
+    /* Light Gray */
+    --text-color: #333333;
+    /* Dark Gray */
     --white: #FFFFFF;
     --error-color: #D32F2F;
     --success-color: #388E3C;
@@ -23,7 +28,7 @@
 
     /* Bordes */
     --border-radius: 8px;
-    --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -39,7 +44,12 @@ body {
     line-height: 1.6;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-heading);
     margin-bottom: var(--spacing-md);
     color: var(--primary-color);
@@ -108,7 +118,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 80px;
 }
 
 .logo img {
@@ -180,7 +190,8 @@ footer {
 
 @media (max-width: 768px) {
     .nav-links {
-        display: none; /* Hidden by default on mobile for now */
+        display: none;
+        /* Hidden by default on mobile for now */
         flex-direction: column;
         position: absolute;
         top: 70px;

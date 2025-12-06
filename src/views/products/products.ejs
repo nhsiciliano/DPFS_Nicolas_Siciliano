@@ -1,39 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
-<%- include('../partials/head', { title: 'Productos', css: 'home' }) %>
-<body>
-    <%- include('../partials/header') %>
+<%- include('../partials/head', { title: 'Productos' , css: 'home' }) %>
 
-    <main class="container">
-        <section class="featured-products">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-                <h2>Todos los Productos</h2>
-                <a href="/products/create" class="btn btn-primary"><i class="fas fa-plus"></i> Nuevo Producto</a>
-            </div>
-            
-            <div class="product-grid">
-                <% products.forEach(product => { %>
-                    <article class="product-card">
-                        <div class="product-image">
-                            <img src="/img/<%= product.image %>" alt="<%= product.name %>">
-                        </div>
-                        <div class="product-info">
-                            <h3><%= product.name %></h3>
-                            <p class="price">$<%= product.price %></p>
-                            <a href="/products/<%= product.id %>" class="btn btn-secondary">Ver Detalle</a>
-                            <div style="display: flex; gap: 10px; margin-top: 10px; justify-content: center;">
-                                <a href="/products/<%= product.id %>/edit" class="btn btn-secondary" style="font-size: 0.8rem;">Editar</a>
-                                <form action="/products/<%= product.id %>?_method=DELETE" method="POST" style="display:inline;">
-                                    <button type="submit" class="btn btn-secondary" style="background-color: var(--error-color); font-size: 0.8rem;">Borrar</button>
-                                </form>
+    <body>
+        <%- include('../partials/header') %>
+
+            <main class="container">
+                <section class="featured-products">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h2>Todos los Productos</h2>
+                        <a href="/products/create" class="btn btn-primary"><i class="fas fa-plus"></i> Nuevo
+                            Producto</a>
+                    </div>
+
+                    <div class="product-grid">
+                        <% products.forEach(product=> { %>
+                            <div class="product-card">
+                                <img src="/img/<%= product.image %>" alt="<%= product.name %>">
+                                <div class="product-info">
+                                    <span class="category">
+                                        <%= product.category ? product.category.name : 'Sin categoría' %>
+                                    </span>
+                                    <h3>
+                                        <%= product.name %>
+                                    </h3>
+                                    <p class="price">$<%= toThousand(product.price) %>
+                                    </p>
+                                    <div class="actions">
+                                        <a href="/products/detail/<%= product.id %>" class="btn btn-secondary">Ver
+                                            Detalle</a>
+                                        <a href="/products/edit/<%= product.id %>" class="btn btn-primary"><i
+                                                class="fas fa-edit"></i></a>
+                                        <form action="/products/<%= product.id %>?_method=DELETE" method="POST"
+                                            style="display: inline;">
+                                            <button type="submit" class="btn btn-danger"><i
+                                                    class="fas fa-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </article>
-                <% }) %>
-            </div>
-        </section>
-    </main>
+                            <% }) %>
+                    </div>
+                </section>
+            </main>
 
-    <%- include('../partials/footer') %>
-</body>
+            <%- include('../partials/footer') %>
+    </body>
+
 </html>

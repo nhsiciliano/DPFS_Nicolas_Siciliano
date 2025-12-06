@@ -1,9 +1,7 @@
 <header>
     <div class="container navbar">
         <a href="/" class="logo">
-            <img src="/Design/logo.png" alt="PetSpace Logo">
-            <span
-                style="font-family: var(--font-heading); font-weight: 700; color: var(--primary-color); margin-left: 8px; font-size: 1.2rem;">PetSpace</span>
+            <img src="/img/logo.png" alt="PetSpace Logo" style="height: 80px;">
         </a>
         <div class="menu-toggle" id="mobile-menu">
             <i class="fas fa-bars"></i>
@@ -15,9 +13,21 @@
             <a href="#">Ofertas</a>
             <a href="#">Contacto</a>
         </nav>
-        <div class="nav-icons">
-            <a href="/users/login"><i class="fas fa-user"></i></a>
+        <div class="nav-icons" style="display: flex; align-items: center; gap: 15px;">
             <a href="/products/cart"><i class="fas fa-shopping-cart"></i></a>
+
+            <% if (locals.isLogged) { %>
+                <div class="user-menu" style="display: flex; align-items: center; gap: 10px;">
+                    <a href="/users/profile" title="Mi Perfil">
+                        <img src="/img/users/<%= locals.userLogged.image %>" alt="Avatar"
+                            style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                    </a>
+                    <a href="/users/logout" title="Cerrar Sesión" style="font-size: 0.9rem;"><i
+                            class="fas fa-sign-out-alt"></i></a>
+                </div>
+                <% } else { %>
+                    <a href="/users/login" title="Iniciar Sesión"><i class="fas fa-user"></i></a>
+                    <% } %>
         </div>
     </div>
 </header>

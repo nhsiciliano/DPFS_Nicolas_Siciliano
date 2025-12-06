@@ -26,23 +26,49 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="category">Categoría</label>
-                            <select id="category" name="category"
+                            <label for="category_id">Categoría</label>
+                            <select id="category_id" name="category_id"
                                 style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"
                                 required>
-                                <option value="Perros" <%=product.category==='Perros' ? 'selected' : '' %>>Perros
-                                </option>
-                                <option value="Gatos" <%=product.category==='Gatos' ? 'selected' : '' %>>Gatos</option>
-                                <option value="Alimentos" <%=product.category==='Alimentos' ? 'selected' : '' %>
-                                    >Alimentos</option>
-                                <option value="Juguetes" <%=product.category==='Juguetes' ? 'selected' : '' %>>Juguetes
-                                </option>
-                                <option value="Confort" <%=product.category==='Confort' ? 'selected' : '' %>>Confort
-                                </option>
-                                <option value="Accesorios" <%=product.category==='Accesorios' ? 'selected' : '' %>
-                                    >Accesorios</option>
+                                <% categories.forEach(category=> { %>
+                                    <option value="<%= category.id %>" <%=product.category_id==category.id ? 'selected'
+                                        : '' %>><%= category.name %>
+                                    </option>
+                                    <% }) %>
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <label for="brand_id">Marca</label>
+                            <select id="brand_id" name="brand_id"
+                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"
+                                required>
+                                <% brands.forEach(brand=> { %>
+                                    <option value="<%= brand.id %>" <%=product.brand_id==brand.id ? 'selected' : '' %>>
+                                        <%= brand.name %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Colores disponibles:</label>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <% colors.forEach(color=> { %>
+                                    <div>
+                                        <input type="checkbox" name="colors" value="<%= color.id %>"
+                                            id="color_<%= color.id %>" <% if (product.colors && product.colors.some(c=>
+                                        c.id == color.id)) { %> checked <% } %> >
+                                            <label for="color_<%= color.id %>">
+                                                <%= color.name %>
+                                            </label>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="oldImage" value="<%= product.image %>">
+
 
                         <div class="form-group">
                             <label for="price">Precio</label>

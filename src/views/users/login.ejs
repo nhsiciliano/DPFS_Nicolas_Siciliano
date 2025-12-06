@@ -14,6 +14,11 @@
                         <div class="form-group">
                             <label for="email">Correo Electrónico</label>
                             <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                            <% if (locals.errors && errors.email) { %>
+                                <div class="text-danger" style="color: red; font-size: 0.8rem; margin-top: 5px;">
+                                    <%= errors.email.msg %>
+                                </div>
+                                <% } %>
                         </div>
 
                         <div class="form-group">
@@ -24,7 +29,7 @@
 
                         <div class="form-group checkbox-group remember-me">
                             <div>
-                                <input type="checkbox" id="remember" name="remember">
+                                <input type="checkbox" id="remember" name="remember_user">
                                 <label for="remember">Recordarme</label>
                             </div>
                             <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>

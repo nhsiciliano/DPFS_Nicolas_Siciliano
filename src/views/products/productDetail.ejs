@@ -27,25 +27,6 @@
                     <div class="product-info-detail">
                         <h1>
                             <%= product.name %>
-                        </h1>
-                        <div class="rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span>(120 opiniones)</span>
-                        </div>
-                        <p class="price">$<%= product.price %>
-                        </p>
-
-                        <div class="description">
-                            <p>
-                                <%= product.description %>
-                            </p>
-                            <ul>
-                                <li>Categoría: <%= product.category %>
-                                </li>
                                 <!-- Colors if present -->
                                 <% if(product.colors && product.colors.length> 0) { %>
                                     <li>Colores: <%= product.colors.join(', ') %></li>
@@ -110,7 +91,7 @@
                 </section>
             </main>
             
-        <%- include('../partials/footer') %>
+        <%- include(' ../partials/footer') %>
     </body>
 
 </html>

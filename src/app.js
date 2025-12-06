@@ -6,10 +6,22 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const userLoggedMiddleware = require('./middlewares/userLoggedMiddleware');
+
 // Middlewares
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(session({
+    secret: "Shhh, It's a secret",
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(cookieParser());
+app.use(userLoggedMiddleware);
+
 const methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 

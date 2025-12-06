@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../partials/head', { title: 'Mi Perfil' , css: 'auth' }) %>
+
+    <body>
+        <%- include('../partials/header') %>
+
+            <main class="container">
+                <section class="auth-container">
+                    <h2 class="auth-title">Mi Perfil</h2>
+                    <div class="profile-card"
+                        style="text-align: center; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        <div class="profile-img-container" style="margin-bottom: 2rem;">
+                            <img src="/img/users/<%= user.image %>" alt="<%= user.firstName %>"
+                                style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--secondary-color);">
+                        </div>
+                        <h3>Hola, <%= user.firstName %>
+                                <%= user.lastName %>!</h3>
+                        <p style="color: #666; margin-bottom: 2rem;">
+                            <%= user.email %>
+                        </p>
+
+                        <div class="user-actions">
+                            <a href="/products/create" class="btn btn-primary">Crear Producto</a>
+                            <a href="/users/logout" class="btn btn-secondary">Cerrar Sesión</a>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <%- include('../partials/footer') %>
+    </body>
+
+</html>
