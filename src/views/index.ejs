@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('partials/head', { title: 'Todo para tu mascota' , css: 'home' }) %>
+
+    <body>
+        <%- include('partials/header') %>
+
+            <main>
+                <!-- Hero Section -->
+                <section class="hero">
+                    <div class="container hero-content">
+                        <h1>El universo de felicidad para tu mascota</h1>
+                        <p>Encuentra los mejores alimentos, juguetes y accesorios para consentir a tu mejor amigo.</p>
+                        <a href="#productos" class="btn btn-primary">Ver Productos</a>
+                    </div>
+                </section>
+
+                <!-- Categories Section -->
+                <section class="categories container">
+                    <h2>Categorías Populares</h2>
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <i class="fas fa-dog"></i>
+                            <h3>Perros</h3>
+                        </div>
+                        <div class="category-card">
+                            <i class="fas fa-cat"></i>
+                            <h3>Gatos</h3>
+                        </div>
+                        <div class="category-card">
+                            <i class="fas fa-cookie-bite"></i>
+                            <h3>Alimentos</h3>
+                        </div>
+                        <div class="category-card">
+                            <i class="fas fa-baseball-ball"></i>
+                            <h3>Juguetes</h3>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Featured Products -->
+                <section id="productos" class="featured-products container">
+                    <h2>Productos Destacados</h2>
+                    <div class="product-grid">
+                        <!-- Product 1 -->
+                        <article class="product-card">
+                            <div class="product-image">
+                                <img src="/img/product-food.jpg" alt="Alimento Premium Perro">
+                            </div>
+                            <div class="product-info">
+                                <h3>Alimento Premium Perro</h3>
+                                <p class="price">$45.00</p>
+                                <a href="/products/detail/1" class="btn btn-secondary">Ver Detalle</a>
+                            </div>
+                        </article>
+                        <!-- Product 2 -->
+                        <article class="product-card">
+                            <div class="product-image">
+                                <img src="/img/product-toy.jpg" alt="Juguete Interactivo">
+                            </div>
+                            <div class="product-info">
+                                <h3>Juguete Interactivo</h3>
+                                <p class="price">$15.50</p>
+                                <a href="/products/detail/2" class="btn btn-secondary">Ver Detalle</a>
+                            </div>
+                        </article>
+                        <!-- Product 3 -->
+                        <article class="product-card">
+                            <div class="product-image">
+                                <img src="/img/product-bed.jpg" alt="Cama Ortopédica">
+                            </div>
+                            <div class="product-info">
+                                <h3>Cama Ortopédica</h3>
+                                <p class="price">$80.00</p>
+                                <a href="/products/detail/3" class="btn btn-secondary">Ver Detalle</a>
+                            </div>
+                        </article>
+                        <!-- Product 4 -->
+                        <article class="product-card">
+                            <div class="product-image">
+                                <img src="/img/product-collar.jpg" alt="Collar Reflectivo">
+                            </div>
+                            <div class="product-info">
+                                <h3>Collar Reflectivo</h3>
+                                <p class="price">$12.00</p>
+                                <a href="/products/detail/4" class="btn btn-secondary">Ver Detalle</a>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Banner Info -->
+                <section class="info-banner">
+                    <div class="container">
+                        <div class="info-item">
+                            <i class="fas fa-truck"></i>
+                            <div>
+                                <h4>Envío Gratis</h4>
+                                <p>En compras superiores a $50</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <h4>Compra Segura</h4>
+                                <p>Protegemos tus datos</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-headset"></i>
+                            <div>
+                                <h4>Soporte 24/7</h4>
+                                <p>Estamos para ayudarte</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <%- include('partials/footer') %>
+    </body>
+
+</html>

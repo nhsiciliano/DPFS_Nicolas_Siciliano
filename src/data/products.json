@@ -1,0 +1,50 @@
+[
+    {
+        "id": 1,
+        "name": "Alimento Premium Perro - Adulto",
+        "description": "Nutrición completa y balanceada para perros adultos de todas las razas. Formulado con ingredientes naturales de alta calidad para asegurar la salud y vitalidad de tu mascota.",
+        "price": 45.00,
+        "category": "Alimentos",
+        "image": "product-food.jpg",
+        "colors": [
+            "Marrón"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Juguete Interactivo",
+        "description": "Juguete resistente diseñado para estimular la mente de tu mascota y mantenerla entretenida durante horas.",
+        "price": 15.50,
+        "category": "Juguetes",
+        "image": "product-toy.jpg",
+        "colors": [
+            "Rojo",
+            "Azul"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Cama Ortopédica",
+        "description": "Cama con espuma de memoria que se adapta al cuerpo de tu mascota, proporcionando un descanso reparador y alivio en las articulaciones.",
+        "price": 80.00,
+        "category": "Confort",
+        "image": "product-bed.jpg",
+        "colors": [
+            "Gris",
+            "Beige"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Collar Reflectivo",
+        "description": "Collar ajustable con banda reflectiva para mayor seguridad durante los paseos nocturnos. Material duradero y cómodo.",
+        "price": 12.00,
+        "category": "Accesorios",
+        "image": "product-collar.jpg",
+        "colors": [
+            "Rojo",
+            "Verde",
+            "Negro"
+        ]
+    }
+]

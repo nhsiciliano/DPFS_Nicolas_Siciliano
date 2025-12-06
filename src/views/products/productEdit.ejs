@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../partials/head', { title: 'Editar Producto' , css: 'auth' }) %>
+
+    <body>
+        <%- include('../partials/header') %>
+
+            <main class="container auth-container">
+                <div class="auth-card" style="max-width: 600px;">
+                    <h1>Editar Producto</h1>
+                    <p class="auth-subtitle">Modifica los datos del producto</p>
+
+                    <!-- Method override simulation for PUT -->
+                    <form action="/products/<%= product.id %>?_method=PUT" method="POST" class="auth-form"
+                        enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="name">Nombre del Producto</label>
+                            <input type="text" id="name" name="name" value="<%= product.name %>" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Descripción</label>
+                            <textarea id="description" name="description" rows="4"
+                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"
+                                required><%= product.description %></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Categoría</label>
+                            <select id="category" name="category"
+                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"
+                                required>
+                                <option value="Perros" <%=product.category==='Perros' ? 'selected' : '' %>>Perros
+                                </option>
+                                <option value="Gatos" <%=product.category==='Gatos' ? 'selected' : '' %>>Gatos</option>
+                                <option value="Alimentos" <%=product.category==='Alimentos' ? 'selected' : '' %>
+                                    >Alimentos</option>
+                                <option value="Juguetes" <%=product.category==='Juguetes' ? 'selected' : '' %>>Juguetes
+                                </option>
+                                <option value="Confort" <%=product.category==='Confort' ? 'selected' : '' %>>Confort
+                                </option>
+                                <option value="Accesorios" <%=product.category==='Accesorios' ? 'selected' : '' %>
+                                    >Accesorios</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">Precio</label>
+                            <input type="number" id="price" name="price" value="<%= product.price %>" step="0.01"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Imagen del Producto</label>
+                            <input type="file" id="image" name="image" accept="image/*"
+                                style="border: none; padding-left: 0;">
+                            <small style="display: block; margin-top: 5px; color: #666;">Imagen actual: <%=
+                                    product.image %></small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Actualizar Producto</button>
+                    </form>
+                </div>
+            </main>
+
+            <%- include('../partials/footer') %>
+    </body>
+
+</html>

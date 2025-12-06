@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../partials/head', { title: 'Carrito de Compras' , css: 'cart' }) %>
+
+    <body>
+        <%- include('../partials/header') %>
+
+            <main class="container cart-container">
+                <h1>Tu Carrito de Compras</h1>
+
+                <div class="cart-layout">
+                    <!-- Cart Items -->
+                    <div class="cart-items">
+                        <!-- Item 1 -->
+                        <div class="cart-item">
+                            <div class="item-image">
+                                <img src="/img/product-food.jpg" alt="Alimento Premium">
+                            </div>
+                            <div class="item-details">
+                                <h3>Alimento Premium Perro</h3>
+                                <p class="item-price">$45.00</p>
+                                <div class="item-actions">
+                                    <div class="quantity-selector">
+                                        <button>-</button>
+                                        <input type="number" value="1" min="1">
+                                        <button>+</button>
+                                    </div>
+                                    <button class="remove-btn"><i class="fas fa-trash"></i> Eliminar</button>
+                                </div>
+                            </div>
+                            <div class="item-total">
+                                $45.00
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="cart-item">
+                            <div class="item-image">
+                                <img src="/img/product-toy.jpg" alt="Juguete Interactivo">
+                            </div>
+                            <div class="item-details">
+                                <h3>Juguete Interactivo</h3>
+                                <p class="item-price">$15.50</p>
+                                <div class="item-actions">
+                                    <div class="quantity-selector">
+                                        <button>-</button>
+                                        <input type="number" value="2" min="1">
+                                        <button>+</button>
+                                    </div>
+                                    <button class="remove-btn"><i class="fas fa-trash"></i> Eliminar</button>
+                                </div>
+                            </div>
+                            <div class="item-total">
+                                $31.00
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="order-summary">
+                        <h2>Resumen del Pedido</h2>
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span>$76.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Envío</span>
+                            <span class="free">Gratis</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span>$76.00</span>
+                        </div>
+                        <button class="btn btn-primary btn-block">Finalizar Compra</button>
+                        <a href="/" class="continue-shopping">Seguir comprando</a>
+                    </div>
+                </div>
+            </main>
+
+            <%- include('../partials/footer') %>
+    </body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('../partials/head', { title: 'Detalle de Producto' , css: 'productDetail' }) %>
+
+    <body>
+        <%- include('../partials/header') %>
+
+            <main class="container product-detail-container">
+                <div class="breadcrumb">
+                    <a href="/">Inicio</a> &gt; <a href="#">Perros</a> &gt; <a href="#">
+                        <%= product.category %>
+                    </a> &gt; <span>
+                        <%= product.name %>
+                    </span>
+                </div>
+
+                <div class="product-detail-grid">
+                    <!-- Product Images -->
+                    <div class="product-gallery">
+                        <div class="main-image">
+                            <img src="/img/<%= product.image %>" alt="<%= product.name %>">
+                        </div>
+                        <!-- Thumbnails omitted for now as we only have one image per product in JSON -->
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="product-info-detail">
+                        <h1>
+                            <%= product.name %>
+                        </h1>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(120 opiniones)</span>
+                        </div>
+                        <p class="price">$<%= product.price %>
+                        </p>
+
+                        <div class="description">
+                            <p>
+                                <%= product.description %>
+                            </p>
+                            <ul>
+                                <li>Categoría: <%= product.category %>
+                                </li>
+                                <!-- Colors if present -->
+                                <% if(product.colors && product.colors.length> 0) { %>
+                                    <li>Colores: <%= product.colors.join(', ') %></li>
+                        <% } %>
+                    </ul>
+                </div>
+
+                <div class="add-to-cart-section">
+                    <div class="quantity-selector">
+                        <button>-</button>
+                        <input type="number" value="1" min="1">
+                        <button>+</button>
+                    </div>
+                    <form action="/products/cart" method="GET"> <!-- Todo: Implement real cart logic -->
+                         <button class="btn btn-primary btn-lg">Agregar al Carrito</button>
+                    </form>
+                </div>
+        </div>
+
+                        <div class="shipping-info">
+                            <p><i class="fas fa-truck"></i> Envío gratis a todo el país</p>
+                            <p><i class="fas fa-undo"></i> Devolución gratuita hasta 30 días</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Related Products -->
+                <section class="related-products">
+                    <h2>Productos Relacionados</h2>
+                    <div class="product-grid">
+                        <article class="product-card">
+                            <div class="product-image">
+                                <img src="/img/product-toy.jpg" alt="Juguete Interactivo">
+                            </div>
+                            <div class="product-info">
+                                <h3>Juguete Interactivo</h3>
+                                <p class="price">$15.50</p>
+                                <a href="/products/detail/2" class="btn btn-secondary">Ver Detalle</a>
+                            </div>
+                        </article>
+                        <article class="product-card">
+                            <div class="product-image">
+                                <img src="/img/product-bed.jpg" alt="Cama Ortopédica">
+                            </div>
+                            <div class="product-info">
+                                <h3>Cama Ortopédica</h3>
+                                <p class="price">$80.00</p>
+                                <a href="/products/detail/3" class="btn btn-secondary">Ver Detalle</a>
+                            </div>
+                        </article>
+                        <article class="product-card">
+                            <div class="product-image">
+                                <img src="/img/product-collar.jpg" alt="Collar Reflectivo">
+                            </div>
+                            <div class="product-info">
+                                <h3>Collar Reflectivo</h3>
+                                <p class="price">$12.00</p>
+                                <a href="/products/detail/4" class="btn btn-secondary">Ver Detalle</a>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </main>
+            
+        <%- include('../partials/footer') %>
+    </body>
+
+</html>
