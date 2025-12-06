@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const { validationResult } = require('express-validator');
 const db = require('../database/models');
 
 const controller = {
@@ -6,6 +7,14 @@ const controller = {
         res.render('users/login');
     },
     processLogin: (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.render('users/login', {
+                errors: errors.mapped(),
+                oldData: req.body
+            });
+        }
+
         db.User.findOne({
             where: { email: req.body.email },
             include: ['role']
@@ -39,32 +48,26 @@ const controller = {
         res.render('users/register');
     },
     processRegister: (req, res) => {
-        db.User.findOne({
-            where: { email: req.body.email }
-        })
-            .then(userInDB => {
-                if (userInDB) {
-                    return res.render('users/register', {
-                        errors: {
-                            email: {
-                                msg: 'Este email ya está registrado'
-                            }
-                        },
-                        oldData: req.body
-                    });
-                }
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.render('users/register', {
+                errors: errors.mapped(),
+                oldData: req.body
+            });
+        }
 
-                db.User.create({
-                    first_name: req.body.firstName,
-                    last_name: req.body.lastName,
-                    email: req.body.email,
-                    password: bcrypt.hashSync(req.body.password, 10),
-                    role_id: 2, // Por defecto 'user'
-                    image: req.file ? req.file.filename : 'default-user.jpg'
-                })
-                    .then(() => {
-                        res.redirect('/users/login');
-                    });
+        // La unicidad del email ya la valida el middleware custom, 
+        // así que podemos proceder directo a crear (o manejar catch del unique constraint por si acaso)
+        db.User.create({
+            first_name: req.body.firstName,
+            last_name: req.body.lastName,
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 10),
+            role_id: 2, // Por defecto 'user'
+            image: req.file ? req.file.filename : 'default-user.jpg'
+        })
+            .then(() => {
+                res.redirect('/users/login');
             })
             .catch(err => res.send(err));
     },

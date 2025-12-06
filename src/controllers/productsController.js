@@ -1,5 +1,6 @@
 const db = require('../database/models');
 const { Op } = require('sequelize');
+const { validationResult } = require('express-validator');
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
@@ -45,6 +46,25 @@ const controller = {
 
     // Guardar nuevo producto
     store: (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const promCategories = db.Category.findAll();
+            const promBrands = db.Brand.findAll();
+            const promColors = db.Color.findAll();
+
+            return Promise.all([promCategories, promBrands, promColors])
+                .then(([categories, brands, colors]) => {
+                    res.render('products/productCreate', {
+                        categories,
+                        brands,
+                        colors,
+                        errors: errors.mapped(),
+                        oldData: req.body
+                    });
+                })
+                .catch(err => res.send(err));
+        }
+
         db.Product.create({
             name: req.body.name,
             description: req.body.description,
@@ -59,7 +79,6 @@ const controller = {
                     if (!Array.isArray(colors)) {
                         colors = [colors];
                     }
-                    // Crear array de promesas para asociar colores
                     const colorRelations = colors.map(colorId => {
                         return db.sequelize.models.product_colors.create({
                             product_id: product.id,
@@ -95,6 +114,27 @@ const controller = {
 
     // Actualizar producto
     update: (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const promProduct = db.Product.findByPk(req.params.id, { include: ['colors'] });
+            const promCategories = db.Category.findAll();
+            const promBrands = db.Brand.findAll();
+            const promColors = db.Color.findAll();
+
+            return Promise.all([promProduct, promCategories, promBrands, promColors])
+                .then(([product, categories, brands, colors]) => {
+                    res.render('products/productEdit', {
+                        product,
+                        categories,
+                        brands,
+                        colors,
+                        errors: errors.mapped(),
+                        oldData: req.body
+                    });
+                })
+                .catch(err => res.send(err));
+        }
+
         db.Product.update({
             name: req.body.name,
             description: req.body.description,

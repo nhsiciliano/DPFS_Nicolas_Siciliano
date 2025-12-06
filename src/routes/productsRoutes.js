@@ -20,9 +20,11 @@ const upload = multer({ storage: storage });
 // Listado de productos
 router.get('/', productsController.index);
 
+const validateProduct = require('../middlewares/validateProductMiddleware');
+
 // Crear un producto
 router.get('/create', productsController.create);
-router.post('/', upload.single('image'), productsController.store);
+router.post('/', upload.single('image'), validateProduct, productsController.store);
 
 // Buscador de productos
 router.get('/search', productsController.search);
@@ -36,7 +38,7 @@ router.get('/:id', productsController.detail);
 
 // Editar un producto
 router.get('/:id/edit', productsController.edit);
-router.put('/:id', upload.single('image'), productsController.update);
+router.put('/:id', upload.single('image'), validateProduct, productsController.update);
 router.delete('/:id', productsController.destroy);
 
 module.exports = router;

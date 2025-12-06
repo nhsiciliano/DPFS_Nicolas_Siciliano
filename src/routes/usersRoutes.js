@@ -20,15 +20,19 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+// Middlewares de Validacion
+const validateLogin = require('../middlewares/validateLoginMiddleware');
+const validateRegister = require('../middlewares/validateRegisterMiddleware');
+
 // Formulario de login
 router.get('/login', guestMiddleware, usersController.login);
 // Procesar el login
-router.post('/login', usersController.processLogin);
+router.post('/login', validateLogin, usersController.processLogin);
 
 // Formulario de registro
 router.get('/register', guestMiddleware, usersController.register);
 // Procesar el registro
-router.post('/register', upload.single('image'), usersController.processRegister);
+router.post('/register', upload.single('image'), validateRegister, usersController.processRegister);
 
 // Perfil de Usuario
 router.get('/profile', authMiddleware, usersController.profile);

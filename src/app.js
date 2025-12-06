@@ -29,10 +29,16 @@ app.use(methodOverride('_method'));
 const mainRoutes = require('./routes/mainRoutes');
 const productsRoutes = require('./routes/productsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
+const usersAPIRoutes = require('./routes/api/usersAPIRoutes');// API Users
+const productsAPIRoutes = require('./routes/api/productsAPIRoutes'); // API Products
 
 app.use('/', mainRoutes);
-app.use('/products', productsRoutes);
 app.use('/users', usersRoutes);
+app.use('/products', productsRoutes);
+app.use('/api/users', usersAPIRoutes); // API Users Endpoints
+app.use('/api/products', productsAPIRoutes); // API Products Endpoints
+app.use('/users', usersRoutes);
+app.use('/api/users', usersAPIRoutes);
 
 // Servidor
 const PORT = process.env.PORT || 3000;

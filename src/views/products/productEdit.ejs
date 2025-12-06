@@ -15,53 +15,81 @@
                         enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name">Nombre del Producto</label>
-                            <input type="text" id="name" name="name" value="<%= product.name %>" required>
+                            <input type="text" id="name" name="name"
+                                value="<%= locals.oldData ? oldData.name : product.name %>">
+                            <% if (locals.errors && errors.name) { %>
+                                <div class="text-danger">
+                                    <%= errors.name.msg %>
+                                </div>
+                                <% } %>
                         </div>
 
                         <div class="form-group">
                             <label for="description">Descripción</label>
                             <textarea id="description" name="description" rows="4"
-                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"
-                                required><%= product.description %></textarea>
+                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"><%= locals.oldData ? oldData.description : product.description %></textarea>
+                            <% if (locals.errors && errors.description) { %>
+                                <div class="text-danger">
+                                    <%= errors.description.msg %>
+                                </div>
+                                <% } %>
                         </div>
 
                         <div class="form-group">
                             <label for="category_id">Categoría</label>
                             <select id="category_id" name="category_id"
-                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"
-                                required>
+                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
                                 <% categories.forEach(category=> { %>
-                                    <option value="<%= category.id %>" <%=product.category_id==category.id ? 'selected'
-                                        : '' %>><%= category.name %>
+                                    <option value="<%= category.id %>" <%=(locals.oldData &&
+                                        oldData.category_id==category.id) || (!locals.oldData &&
+                                        product.category_id==category.id) ? 'selected' : '' %>>
+                                        <%= category.name %>
                                     </option>
                                     <% }) %>
                             </select>
+                            <% if (locals.errors && errors.category_id) { %>
+                                <div class="text-danger">
+                                    <%= errors.category_id.msg %>
+                                </div>
+                                <% } %>
                         </div>
 
                         <div class="form-group">
                             <label for="brand_id">Marca</label>
                             <select id="brand_id" name="brand_id"
-                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;"
-                                required>
+                                style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
                                 <% brands.forEach(brand=> { %>
-                                    <option value="<%= brand.id %>" <%=product.brand_id==brand.id ? 'selected' : '' %>>
+                                    <option value="<%= brand.id %>" <%=(locals.oldData && oldData.brand_id==brand.id) ||
+                                        (!locals.oldData && product.brand_id==brand.id) ? 'selected' : '' %>>
                                         <%= brand.name %>
                                     </option>
                                     <% }) %>
                             </select>
+                            <% if (locals.errors && errors.brand_id) { %>
+                                <div class="text-danger">
+                                    <%= errors.brand_id.msg %>
+                                </div>
+                                <% } %>
                         </div>
 
                         <div class="form-group">
                             <label>Colores disponibles:</label>
                             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                                <% colors.forEach(color=> { %>
+                                <% colors.forEach(color=> {
+                                    let isChecked = false;
+                                    if (locals.oldData && oldData.colors) {
+                                    isChecked = Array.isArray(oldData.colors) ?
+                                    oldData.colors.includes(color.id.toString()) : oldData.colors == color.id;
+                                    } else if (!locals.oldData && product.colors) {
+                                    isChecked = product.colors.some(c => c.id == color.id);
+                                    }
+                                    %>
                                     <div>
                                         <input type="checkbox" name="colors" value="<%= color.id %>"
-                                            id="color_<%= color.id %>" <% if (product.colors && product.colors.some(c=>
-                                        c.id == color.id)) { %> checked <% } %> >
-                                            <label for="color_<%= color.id %>">
-                                                <%= color.name %>
-                                            </label>
+                                            id="color_<%= color.id %>" <%=isChecked ? 'checked' : '' %> >
+                                        <label for="color_<%= color.id %>">
+                                            <%= color.name %>
+                                        </label>
                                     </div>
                                     <% }) %>
                             </div>
@@ -72,8 +100,8 @@
 
                         <div class="form-group">
                             <label for="price">Precio</label>
-                            <input type="number" id="price" name="price" value="<%= product.price %>" step="0.01"
-                                required>
+                            <input type="number" id="price" name="price"
+                                value="<%= locals.oldData ? oldData.price : product.price %>" step="0.01">
                         </div>
 
                         <div class="form-group">
@@ -82,6 +110,11 @@
                                 style="border: none; padding-left: 0;">
                             <small style="display: block; margin-top: 5px; color: #666;">Imagen actual: <%=
                                     product.image %></small>
+                            <% if (locals.errors && errors.image) { %>
+                                <div class="text-danger">
+                                    <%= errors.image.msg %>
+                                </div>
+                                <% } %>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block">Actualizar Producto</button>
@@ -90,6 +123,7 @@
             </main>
 
             <%- include('../partials/footer') %>
+                <script src="/js/validationProduct.js"></script>
     </body>
 
 </html>
