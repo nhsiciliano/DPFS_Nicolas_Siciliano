@@ -8,7 +8,7 @@
             <main class="container product-detail-container">
                 <div class="breadcrumb">
                     <a href="/">Inicio</a> &gt; <a href="#">Perros</a> &gt; <a href="#">
-                        <%= product.category %>
+                        <%= product.category ? product.category.name : 'Sin Categoría' %>
                     </a> &gt; <span>
                         <%= product.name %>
                     </span>
@@ -29,28 +29,33 @@
                             <%= product.name %>
                                 <!-- Colors if present -->
                                 <% if(product.colors && product.colors.length> 0) { %>
-                                    <li>Colores: <%= product.colors.join(', ') %></li>
-                        <% } %>
-                    </ul>
+                                    <li>Colores: <%= product.colors.map(c=> c.name).join(', ') %></li>
+                                    <% } %>
+                                        </ul>
+                    </div>
+
+                    <div class="add-to-cart-section">
+                        <form action="/products/cart/add" method="POST">
+                            <input type="hidden" name="product_id" value="<%= product.id %>">
+                            <div class="quantity-selector">
+                                <button type="button"
+                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
+                                <input type="number" name="quantity" value="1" min="1"
+                                    style="text-align: center; width: 50px;">
+                                <button type="button"
+                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 10px;">Agregar al
+                                Carrito</button>
+                        </form>
+                    </div>
                 </div>
 
-                <div class="add-to-cart-section">
-                    <div class="quantity-selector">
-                        <button>-</button>
-                        <input type="number" value="1" min="1">
-                        <button>+</button>
-                    </div>
-                    <form action="/products/cart" method="GET"> <!-- Todo: Implement real cart logic -->
-                         <button class="btn btn-primary btn-lg">Agregar al Carrito</button>
-                    </form>
+                <div class="shipping-info">
+                    <p><i class="fas fa-truck"></i> Envío gratis a todo el país</p>
+                    <p><i class="fas fa-undo"></i> Devolución gratuita hasta 30 días</p>
                 </div>
-        </div>
-
-                        <div class="shipping-info">
-                            <p><i class="fas fa-truck"></i> Envío gratis a todo el país</p>
-                            <p><i class="fas fa-undo"></i> Devolución gratuita hasta 30 días</p>
-                        </div>
-                    </div>
+                </div>
                 </div>
 
                 <!-- Related Products -->
@@ -90,8 +95,8 @@
                     </div>
                 </section>
             </main>
-            
-        <%- include(' ../partials/footer') %>
+
+            <%- include('../partials/footer') %>
     </body>
 
 </html>

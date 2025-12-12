@@ -146,6 +146,39 @@
     text-decoration: underline;
 }
 
+/* Quantity Selector (Shared with Product Detail) */
+.quantity-selector {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    height: 35px;
+}
+
+.quantity-selector button {
+    background: none;
+    border: none;
+    padding: 0 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #555;
+    transition: background-color 0.2s;
+}
+
+.quantity-selector button:hover {
+    background-color: #f0f0f0;
+}
+
+.quantity-selector input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-size: 0.9rem;
+    color: #333;
+    outline: none;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .cart-layout {
@@ -159,6 +192,18 @@
 
     .item-image {
         margin-bottom: var(--spacing-md);
+        width: 80px;
+        height: 80px;
+    }
+
+    .item-details {
+        width: 100%;
+    }
+
+    .item-actions {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: var(--spacing-sm);
     }
 
     .item-total {

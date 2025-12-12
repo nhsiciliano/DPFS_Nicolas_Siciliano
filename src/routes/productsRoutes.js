@@ -21,10 +21,13 @@ const upload = multer({ storage: storage });
 router.get('/', productsController.index);
 
 const validateProduct = require('../middlewares/validateProductMiddleware');
+const adminMiddleware = require('../middlewares/adminMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 // Crear un producto
-router.get('/create', productsController.create);
-router.post('/', upload.single('image'), validateProduct, productsController.store);
+// Crear un producto
+router.get('/create', adminMiddleware, productsController.create);
+router.post('/', upload.single('image'), adminMiddleware, validateProduct, productsController.store);
 
 // Buscador de productos
 router.get('/search', productsController.search);
@@ -32,13 +35,20 @@ router.get('/search', productsController.search);
 // Detalle de un producto
 router.get('/detail/:id', productsController.detail); // Mantengo '/detail/:id' por compatibilidad con current, pero el usuario pidió '/products/:id'
 
+// Carrito de compras
+router.get('/cart', authMiddleware, productsController.cart);
+router.post('/cart/add', authMiddleware, productsController.addToCart);
+router.delete('/cart/item/:id', authMiddleware, productsController.deleteCartItem);
+router.put('/cart/item/:id', authMiddleware, productsController.updateCartItem);
+
 // Rutas requeridas exactamente por el usuario:
 // /products/:id (GET) -> Detalle
 router.get('/:id', productsController.detail);
 
 // Editar un producto
-router.get('/:id/edit', productsController.edit);
-router.put('/:id', upload.single('image'), validateProduct, productsController.update);
-router.delete('/:id', productsController.destroy);
+// Editar un producto
+router.get('/:id/edit', adminMiddleware, productsController.edit);
+router.put('/:id', upload.single('image'), adminMiddleware, validateProduct, productsController.update);
+router.delete('/:id', adminMiddleware, productsController.destroy);
 
 module.exports = router;

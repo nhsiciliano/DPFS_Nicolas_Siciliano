@@ -203,7 +203,101 @@ const controller = {
     },
 
     cart: (req, res) => {
-        res.render('products/productCart');
+        db.Order.findOne({
+            where: {
+                user_id: req.session.userLogged.id,
+                status: 'pending'
+            },
+            include: ['items', 'products']
+        })
+            .then(order => {
+                if (!order) {
+                    return res.render('products/productCart', { order: null, toThousand });
+                }
+
+                // Calculate total (optional if we trust the db 'total' field, but good to recalc on display)
+                let total = 0;
+                order.items.forEach(item => {
+                    total += Number(item.price) * item.quantity;
+                });
+
+                res.render('products/productCart', { order, toThousand, total });
+            })
+            .catch(err => res.send(err));
+    },
+
+    addToCart: (req, res) => {
+        // Find existing pending order or create one
+        db.Order.findOrCreate({
+            where: {
+                user_id: req.session.userLogged.id,
+                status: 'pending'
+            },
+            defaults: {
+                user_id: req.session.userLogged.id,
+                status: 'pending',
+                total: 0
+            }
+        })
+            .then(([order, created]) => {
+                // Find if product is already in order
+                return db.OrderItem.findOne({
+                    where: {
+                        order_id: order.id,
+                        product_id: req.body.product_id
+                    }
+                }).then(item => {
+                    if (item) {
+                        // Update quantity
+                        item.quantity += Number(req.body.quantity);
+                        return item.save();
+                    } else {
+                        // Create new item
+                        // First get product price
+                        return db.Product.findByPk(req.body.product_id)
+                            .then(product => {
+                                return db.OrderItem.create({
+                                    order_id: order.id,
+                                    product_id: req.body.product_id,
+                                    quantity: Number(req.body.quantity),
+                                    price: product.price
+                                });
+                            });
+                    }
+                });
+            })
+            .then(() => {
+                res.redirect('/products/cart');
+            })
+            .catch(err => res.send(err));
+    },
+
+    deleteCartItem: (req, res) => {
+        db.OrderItem.destroy({
+            where: { id: req.params.id }
+        })
+            .then(() => {
+                res.redirect('/products/cart');
+            })
+            .catch(err => res.send(err));
+    },
+
+    updateCartItem: (req, res) => {
+        db.OrderItem.findByPk(req.params.id)
+            .then(item => {
+                if (req.body.action === 'increase') {
+                    item.quantity += 1;
+                } else if (req.body.action === 'decrease') {
+                    if (item.quantity > 1) {
+                        item.quantity -= 1;
+                    }
+                }
+                return item.save();
+            })
+            .then(() => {
+                res.redirect('/products/cart');
+            })
+            .catch(err => res.send(err));
     }
 };
 

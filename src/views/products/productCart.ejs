@@ -9,71 +9,77 @@
                 <h1>Tu Carrito de Compras</h1>
 
                 <div class="cart-layout">
-                    <!-- Cart Items -->
-                    <div class="cart-items">
-                        <!-- Item 1 -->
-                        <div class="cart-item">
-                            <div class="item-image">
-                                <img src="/img/product-food.jpg" alt="Alimento Premium">
-                            </div>
-                            <div class="item-details">
-                                <h3>Alimento Premium Perro</h3>
-                                <p class="item-price">$45.00</p>
-                                <div class="item-actions">
-                                    <div class="quantity-selector">
-                                        <button>-</button>
-                                        <input type="number" value="1" min="1">
-                                        <button>+</button>
+                    <% if (locals.order && order.items && order.items.length> 0) { %>
+                        <!-- Cart Items -->
+                        <div class="cart-items">
+                            <% order.items.forEach(item=> { %>
+                                <% // Find the product detail from the order.products array included in controller let
+                                    product=order.products.find(p=> p.id === item.product_id);
+                                    %>
+                                    <div class="cart-item">
+                                        <div class="item-image">
+                                            <img src="/img/<%= product ? product.image : 'default-product.jpg' %>"
+                                                alt="<%= product ? product.name : 'Producto' %>">
+                                        </div>
+                                        <div class="item-details">
+                                            <h3>
+                                                <%= product ? product.name : 'Producto desconocido' %>
+                                            </h3>
+                                            <p class="item-price">$<%= item.price %>
+                                            </p>
+                                            <div class="item-actions">
+                                                <div class="quantity-selector">
+                                                    <form action="/products/cart/item/<%= item.id %>?_method=PUT"
+                                                        method="POST" style="display:inline;">
+                                                        <input type="hidden" name="action" value="decrease">
+                                                        <button type="submit">-</button>
+                                                    </form>
+                                                    <input type="number" value="<%= item.quantity %>" min="1" readonly>
+                                                    <form action="/products/cart/item/<%= item.id %>?_method=PUT"
+                                                        method="POST" style="display:inline;">
+                                                        <input type="hidden" name="action" value="increase">
+                                                        <button type="submit">+</button>
+                                                    </form>
+                                                </div>
+                                                <form action="/products/cart/item/<%= item.id %>?_method=DELETE"
+                                                    method="POST" style="display:inline; margin-left: 10px;">
+                                                    <button type="submit" class="remove-btn"><i
+                                                            class="fas fa-trash"></i> Eliminar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="item-total">
+                                            $<%= (Number(item.price) * item.quantity).toFixed(2) %>
+                                        </div>
                                     </div>
-                                    <button class="remove-btn"><i class="fas fa-trash"></i> Eliminar</button>
-                                </div>
-                            </div>
-                            <div class="item-total">
-                                $45.00
-                            </div>
+                                    <% }) %>
                         </div>
 
-                        <!-- Item 2 -->
-                        <div class="cart-item">
-                            <div class="item-image">
-                                <img src="/img/product-toy.jpg" alt="Juguete Interactivo">
+                        <!-- Order Summary -->
+                        <div class="order-summary">
+                            <h2>Resumen del Pedido</h2>
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span>$<%= typeof total !=='undefined' ? total.toFixed(2) : order.total %></span>
                             </div>
-                            <div class="item-details">
-                                <h3>Juguete Interactivo</h3>
-                                <p class="item-price">$15.50</p>
-                                <div class="item-actions">
-                                    <div class="quantity-selector">
-                                        <button>-</button>
-                                        <input type="number" value="2" min="1">
-                                        <button>+</button>
-                                    </div>
-                                    <button class="remove-btn"><i class="fas fa-trash"></i> Eliminar</button>
-                                </div>
+                            <div class="summary-row">
+                                <span>Envío</span>
+                                <span class="free">Gratis</span>
                             </div>
-                            <div class="item-total">
-                                $31.00
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span>$<%= typeof total !=='undefined' ? total.toFixed(2) : order.total %></span>
                             </div>
+                            <button class="btn btn-primary btn-block">Finalizar Compra</button>
+                            <a href="/products" class="continue-shopping">Seguir comprando</a>
                         </div>
-                    </div>
-
-                    <!-- Order Summary -->
-                    <div class="order-summary">
-                        <h2>Resumen del Pedido</h2>
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span>$76.00</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Envío</span>
-                            <span class="free">Gratis</span>
-                        </div>
-                        <div class="summary-row total">
-                            <span>Total</span>
-                            <span>$76.00</span>
-                        </div>
-                        <button class="btn btn-primary btn-block">Finalizar Compra</button>
-                        <a href="/" class="continue-shopping">Seguir comprando</a>
-                    </div>
+                        <% } else { %>
+                            <div class="empty-cart" style="text-align: center; width: 100%; padding: 3rem;">
+                                <h2>Tu carrito está vacío</h2>
+                                <p>¡Agrega algunos productos para empezar!</p>
+                                <a href="/products" class="btn btn-primary" style="margin-top: 1rem;">Ir a Productos</a>
+                            </div>
+                            <% } %>
                 </div>
             </main>
 

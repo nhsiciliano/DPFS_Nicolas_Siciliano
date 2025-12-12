@@ -58,4 +58,6 @@ Para el diseño y funcionalidades de **PetSpace**, hemos analizado varios sitios
 
 ---
 
+Tablero de trabajo: https://trello.com/invite/b/693a0998f3d35432ac8739ba/ATTI069275917dc99a65097aa53aabb04cb22ED1F80A/e-commerce-dh
+
 *Proyecto desarrollado para Digital House - DH Venture Capitals*
