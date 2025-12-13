@@ -74,10 +74,22 @@
                             <a href="/products" class="continue-shopping">Seguir comprando</a>
                         </div>
                         <% } else { %>
-                            <div class="empty-cart" style="text-align: center; width: 100%; padding: 3rem;">
-                                <h2>Tu carrito está vacío</h2>
-                                <p>¡Agrega algunos productos para empezar!</p>
-                                <a href="/products" class="btn btn-primary" style="margin-top: 1rem;">Ir a Productos</a>
+                            <div class="empty-cart-container"
+                                style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 2rem; background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); text-align: center;">
+                                <div
+                                    style="background: #eff6ff; width: 120px; height: 120px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; animation: float 6s ease-in-out infinite;">
+                                    <i class="fas fa-shopping-basket" style="font-size: 3.5rem; color: #3b82f6;"></i>
+                                </div>
+                                <h2 style="font-size: 2rem; font-weight: 800; color: #1f2937; margin-bottom: 1rem;">Tu
+                                    carrito está vacío</h2>
+                                <p
+                                    style="color: #6b7280; font-size: 1.1rem; margin-bottom: 2.5rem; max-width: 450px; line-height: 1.6;">
+                                    Parece que aún no has agregado nada. Explora nuestros productos y encuentra lo mejor
+                                    para tu mascota.</p>
+                                <a href="/products" class="btn btn-primary"
+                                    style="padding: 1rem 2.5rem; font-size: 1.1rem; font-weight: 600; border-radius: 9999px; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); transition: all 0.3s transform;">
+                                    <i class="fas fa-search" style="margin-right: 0.5rem;"></i> Explorar Productos
+                                </a>
                             </div>
                             <% } %>
                 </div>

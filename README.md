@@ -61,3 +61,63 @@ Para el diseño y funcionalidades de **PetSpace**, hemos analizado varios sitios
 Tablero de trabajo: https://trello.com/invite/b/693a0998f3d35432ac8739ba/ATTI069275917dc99a65097aa53aabb04cb22ED1F80A/e-commerce-dh
 
 *Proyecto desarrollado para Digital House - DH Venture Capitals*
+
+---
+
+## 🚀 Guía de Instalación y Pruebas
+
+Para correr este proyecto localmente y probar todas las funcionalidades, sigue estos pasos:
+
+### 1. Prerrequisitos
+Asegúrate de tener instalado en tu máquina:
+- [Node.js](https://nodejs.org/) (versión 14 o superior)
+- [MySQL](https://www.mysql.com/) o MariaDB
+
+### 2. Clonar el Repositorio
+Abre tu terminal y ejecuta:
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd fullstack_digitalhouse
+```
+
+### 3. Instalar Dependencias
+Ejecuta el siguiente comando para instalar las librerías necesarias:
+```bash
+npm install
+```
+
+### 4. Configuración de Base de Datos
+1. Crea una base de datos vacía llamada `petspace_db` en tu motor MySQL.
+2. Importa la estructura y datos iniciales ubicados en `src/database/`. Puedes hacerlo desde tu cliente SQL favorito (Workbench, DBeaver) o por línea de comandos:
+
+```bash
+# Primero la estructura
+mysql -u root -p petspace_db < src/database/structure.sql
+
+# Luego la data (usuarios, productos, categorías)
+mysql -u root -p petspace_db < src/database/data.sql
+```
+
+> **Nota:** La configuración por defecto asume usuario `root` sin contraseña en localhost. Si tu configuración es distinta, edita el archivo `src/database/config/config.js`.
+
+### 5. Iniciar la Aplicación
+Ejecuta el servidor con:
+```bash
+npm start
+```
+El servidor iniciará en `http://localhost:3000`.
+
+### 6. Probar el Sitio
+Para probar los diferentes roles y permisos, utiliza las siguientes credenciales de prueba (la contraseña es `12345678` para ambos):
+
+#### 🔑 Usuario Administrador
+*   **Email:** `admin@petspace.com`
+*   **Password:** `12345678`
+*   **Permisos:** Puede Crear, Editar y Eliminar productos. Verás estos botones en el listado de productos y en el perfil.
+
+#### 👤 Usuario Cliente
+*   **Email:** `juan.perez@example.com`
+*   **Password:** `12345678`
+*   **Permisos:** Puede navegar, ver detalles, agregar productos al carrito y gestionar su carrito de compras, pero NO puede administrar productos.
+
+¡Que disfrutes navegando por PetSpace! 🐾

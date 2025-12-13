@@ -1,102 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
-<%- include('../partials/head', { title: 'Detalle de Producto' , css: 'productDetail' }) %>
+<%- include('../partials/head', { title: product.name , css: 'productDetail' }) %>
 
-    <body>
-        <%- include('../partials/header') %>
+<body style="background-color: #f9fafb;">
+    <%- include('../partials/header') %>
 
-            <main class="container product-detail-container">
-                <div class="breadcrumb">
-                    <a href="/">Inicio</a> &gt; <a href="#">Perros</a> &gt; <a href="#">
-                        <%= product.category ? product.category.name : 'Sin Categoría' %>
-                    </a> &gt; <span>
-                        <%= product.name %>
-                    </span>
+    <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+        
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" style="margin-bottom: 2rem;">
+            <ol style="list-style: none; padding: 0; display: flex; font-size: 0.9rem; color: #6b7280;">
+                <li><a href="/" style="text-decoration: none; color: #6b7280; transition: color 0.2s;">Inicio</a></li>
+                <li style="margin: 0 0.5rem;">/</li>
+                <li><a href="/products" style="text-decoration: none; color: #6b7280; transition: color 0.2s;">Productos</a></li>
+                <li style="margin: 0 0.5rem;">/</li>
+                <li style="color: #374151; font-weight: 500;"><%= product.name %></li>
+            </ol>
+        </nav>
+
+        <div class="product-detail-card" style="background: white; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+            <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; padding: 3rem;">
+                
+                <!-- Gallery Section -->
+                <div class="product-gallery" style="position: relative;">
+                    <div class="main-image-container" style="border-radius: 12px; overflow: hidden; background: #f3f4f6; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center;">
+                        <img src="/img/<%= product.image %>" alt="<%= product.name %>" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.3s ease;">
+                    </div>
                 </div>
 
-                <div class="product-detail-grid">
-                    <!-- Product Images -->
-                    <div class="product-gallery">
-                        <div class="main-image">
-                            <img src="/img/<%= product.image %>" alt="<%= product.name %>">
+                <!-- Info Section -->
+                <div class="product-info-section">
+                    <span class="category-badge" style="display: inline-block; padding: 0.25rem 0.75rem; background: #e0e7ff; color: #4338ca; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">
+                        <%= product.category ? product.category.name : 'General' %>
+                    </span>
+                    
+                    <h1 style="font-size: 2.5rem; font-weight: 800; color: #111827; line-height: 1.2; margin-bottom: 1rem;">
+                        <%= product.name %>
+                    </h1>
+
+                    <div class="price-container" style="margin-bottom: 1.5rem; display: flex; align-items: baseline; gap: 1rem;">
+                        <span style="font-size: 2rem; font-weight: 700; color: #059669;">$<%= toThousand(product.price) %></span>
+                    </div>
+
+                    <p class="description" style="color: #4b5563; line-height: 1.7; margin-bottom: 2rem; font-size: 1.05rem;">
+                        <%= product.description || 'Descripción del producto no disponible.' %>
+                    </p>
+
+                    <% if(product.colors && product.colors.length > 0) { %>
+                    <div class="options-container" style="margin-bottom: 2rem;">
+                        <h3 style="font-size: 0.9rem; font-weight: 600; color: #374151; margin-bottom: 0.75rem; text-transform: uppercase;">Colores Disponibles:</h3>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <% product.colors.forEach(color => { %>
+                                <span style="padding: 0.3rem 0.8rem; border: 1px solid #d1d5db; border-radius: 6px; font-size: 0.9rem; color: #4b5563;"><%= color.name %></span>
+                            <% }) %>
                         </div>
-                        <!-- Thumbnails omitted for now as we only have one image per product in JSON -->
                     </div>
+                    <% } %>
 
-                    <!-- Product Info -->
-                    <div class="product-info-detail">
-                        <h1>
-                            <%= product.name %>
-                                <!-- Colors if present -->
-                                <% if(product.colors && product.colors.length> 0) { %>
-                                    <li>Colores: <%= product.colors.map(c=> c.name).join(', ') %></li>
-                                    <% } %>
-                                        </ul>
-                    </div>
-
-                    <div class="add-to-cart-section">
-                        <form action="/products/cart/add" method="POST">
+                    <!-- Add to Cart Form -->
+                    <div class="action-card" style="background: #f8fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <form action="/products/cart/add" method="POST" style="display: flex; gap: 1rem; flex-wrap: wrap;">
                             <input type="hidden" name="product_id" value="<%= product.id %>">
-                            <div class="quantity-selector">
-                                <button type="button"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
-                                <input type="number" name="quantity" value="1" min="1"
-                                    style="text-align: center; width: 50px;">
-                                <button type="button"
-                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
+                            
+                            <div class="quantity-group" style="flex: 0 0 auto;">
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.4rem; color: #475569;">Cantidad</label>
+                                <div class="quantity-wrapper" style="display: flex; align-items: center; background: white; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden;">
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" style="background: none; border: none; padding: 0.6rem 1rem; cursor: pointer; color: #64748b; transition: background 0.2s;">
+                                        <i class="fas fa-minus" style="font-size: 0.8rem;"></i>
+                                    </button>
+                                    <input type="number" name="quantity" value="1" min="1" style="width: 3rem; text-align: center; border: none; font-weight: 600; color: #1e293b; -moz-appearance: textfield;">
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" style="background: none; border: none; padding: 0.6rem 1rem; cursor: pointer; color: #64748b; transition: background 0.2s;">
+                                        <i class="fas fa-plus" style="font-size: 0.8rem;"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 10px;">Agregar al
-                                Carrito</button>
+                            
+                            <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; justify-content: flex-end;">
+                                <button type="submit" class="btn-primary-add" style="width: 100%; padding: 0.8rem 1.5rem; background: #2563eb; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);">
+                                    <i class="fas fa-shopping-cart" style="margin-right: 0.5rem;"></i> Agregar al Carrito
+                                </button>
+                            </div>
                         </form>
                     </div>
-                </div>
 
-                <div class="shipping-info">
-                    <p><i class="fas fa-truck"></i> Envío gratis a todo el país</p>
-                    <p><i class="fas fa-undo"></i> Devolución gratuita hasta 30 días</p>
-                </div>
-                </div>
-                </div>
-
-                <!-- Related Products -->
-                <section class="related-products">
-                    <h2>Productos Relacionados</h2>
-                    <div class="product-grid">
-                        <article class="product-card">
-                            <div class="product-image">
-                                <img src="/img/product-toy.jpg" alt="Juguete Interactivo">
+                    <div class="trust-badges" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.8rem;">
+                            <div style="width: 40px; height: 40px; background: #ecfdf5; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #059669;">
+                                <i class="fas fa-truck"></i>
                             </div>
-                            <div class="product-info">
-                                <h3>Juguete Interactivo</h3>
-                                <p class="price">$15.50</p>
-                                <a href="/products/detail/2" class="btn btn-secondary">Ver Detalle</a>
+                            <div>
+                                <h4 style="font-weight: 600; font-size: 0.9rem; margin: 0; color: #1f2937;">Envío Gratis</h4>
+                                <span style="font-size: 0.8rem; color: #6b7280;">A todo el país</span>
                             </div>
-                        </article>
-                        <article class="product-card">
-                            <div class="product-image">
-                                <img src="/img/product-bed.jpg" alt="Cama Ortopédica">
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.8rem;">
+                            <div style="width: 40px; height: 40px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #2563eb;">
+                                <i class="fas fa-shield-alt"></i>
                             </div>
-                            <div class="product-info">
-                                <h3>Cama Ortopédica</h3>
-                                <p class="price">$80.00</p>
-                                <a href="/products/detail/3" class="btn btn-secondary">Ver Detalle</a>
+                            <div>
+                                <h4 style="font-weight: 600; font-size: 0.9rem; margin: 0; color: #1f2937;">Garantía</h4>
+                                <span style="font-size: 0.8rem; color: #6b7280;">30 días de cobertura</span>
                             </div>
-                        </article>
-                        <article class="product-card">
-                            <div class="product-image">
-                                <img src="/img/product-collar.jpg" alt="Collar Reflectivo">
-                            </div>
-                            <div class="product-info">
-                                <h3>Collar Reflectivo</h3>
-                                <p class="price">$12.00</p>
-                                <a href="/products/detail/4" class="btn btn-secondary">Ver Detalle</a>
-                            </div>
-                        </article>
+                        </div>
                     </div>
-                </section>
-            </main>
 
-            <%- include('../partials/footer') %>
-    </body>
+                </div>
+            </div>
+        </div>
 
+        <!-- Related Products Section -->
+        <section class="related-products" style="margin-top: 4rem;">
+            <h2 style="font-size: 1.8rem; font-weight: 700; color: #1f2937; margin-bottom: 2rem; position: relative; padding-left: 1rem; border-left: 4px solid #2563eb;">Productos Relacionados</h2>
+            <div class="product-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
+                
+                <!-- This would ideally be dynamic but keeping static as per previous file -->
+                <article class="related-card" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.2s;">
+                    <div style="height: 200px; overflow: hidden; background: #f3f4f6;">
+                        <img src="/img/product-toy.jpg" alt="Juguete" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: #1f2937;">Juguete Interactivo</h3>
+                        <p style="font-weight: 700; color: #059669; font-size: 1.1rem;">$15.50</p>
+                        <a href="/products/detail/2" class="btn-view" style="display: block; text-align: center; margin-top: 1rem; padding: 0.5rem; background: transparent; border: 1px solid #d1d5db; border-radius: 6px; color: #4b5563; text-decoration: none; font-weight: 500; transition: all 0.2s;">Ver Detalle</a>
+                    </div>
+                </article>
+
+                <article class="related-card" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.2s;">
+                    <div style="height: 200px; overflow: hidden; background: #f3f4f6;">
+                        <img src="/img/product-bed.jpg" alt="Cama" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: #1f2937;">Cama Ortopédica</h3>
+                        <p style="font-weight: 700; color: #059669; font-size: 1.1rem;">$80.00</p>
+                        <a href="/products/detail/3" class="btn-view" style="display: block; text-align: center; margin-top: 1rem; padding: 0.5rem; background: transparent; border: 1px solid #d1d5db; border-radius: 6px; color: #4b5563; text-decoration: none; font-weight: 500; transition: all 0.2s;">Ver Detalle</a>
+                    </div>
+                </article>
+
+                <article class="related-card" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: transform 0.2s;">
+                    <div style="height: 200px; overflow: hidden; background: #f3f4f6;">
+                        <img src="/img/product-collar.jpg" alt="Collar" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: #1f2937;">Collar Reflectivo</h3>
+                        <p style="font-weight: 700; color: #059669; font-size: 1.1rem;">$12.00</p>
+                        <a href="/products/detail/4" class="btn-view" style="display: block; text-align: center; margin-top: 1rem; padding: 0.5rem; background: transparent; border: 1px solid #d1d5db; border-radius: 6px; color: #4b5563; text-decoration: none; font-weight: 500; transition: all 0.2s;">Ver Detalle</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <%- include('../partials/footer') %>
+</body>
 </html>

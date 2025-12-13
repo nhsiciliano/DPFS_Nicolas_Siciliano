@@ -42,8 +42,8 @@ INSERT INTO colors (name) VALUES
 -- Usamos el hash provisto por el usuario para user 3 como ejemplo válido, y generamos placeholder para los otros.
 
 INSERT INTO users (id, first_name, last_name, email, password, role_id, image) VALUES 
-(1, 'Admin', 'PetSpace', 'admin@petspace.com', '$2a$10$EpIxNw.q.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq', 1, 'default-admin.jpg'),
-(2, 'Juan', 'Pérez', 'juan.perez@example.com', '$2a$10$EpIxNw.q.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq.Qq', 2, 'default-user.jpg'),
+(1, 'Admin', 'PetSpace', 'admin@petspace.com', '$2b$10$tUTX/901hlfYzMgCjXUPyufs9kllPqPsRqfmL5i84mIlGJEw8Gvcm', 1, 'default-admin.jpg'),
+(2, 'Juan', 'Pérez', 'juan.perez@example.com', '$2b$10$tUTX/901hlfYzMgCjXUPyufs9kllPqPsRqfmL5i84mIlGJEw8Gvcm', 2, 'default-user.jpg'),
 (3, 'Juan', 'Perez', 'juancitop@gmail.com', '$2b$10$N7UWVXkqAz3MdrWGYd9iSepFfz46OJZXtZoZzQXi8xgbR.bSw8Q22', 2, 'image-1765034035251-148319017.png');
 
 -- 3. Poblar Productos
